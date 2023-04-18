@@ -38,13 +38,21 @@ class BinarySearchTree:
 
     # Return the node with the minimum value 
     def findMin(self):
-        # TODO
-        pass
+        if self.isEmpty():
+            return None
+        node = self.root
+        while node.left:
+            node = node.left
+        return node
 
     # Return the node with the maximum value 
     def findMax(self):
-        # TODO
-        pass
+        if self.isEmpty():
+            return None
+        node = self.root
+        while node.right:
+            node = node.right
+        return node
 
     def _getHeight(self, curr):
         if not curr:
