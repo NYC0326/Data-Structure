@@ -68,7 +68,7 @@ class Course:
     while curr: # 현재 노드가 있을 때 동안
       if curr.id == queryID: # 만약에 현재 노드의 id가 삭제하고자 하는 학생의 id랑 같다면
         if not prev: # 삭제하고자 하는 노드의 이전 노드가 없다면 (== head라면)
-          head = curr.next # head를 다음 노드로 바꿔줌
+          self.head = curr.next # head를 다음 노드로 바꿔줌
         else: # 그 외의 경우에는 이전 노드의 다음 노드를 현재 노드의 다음 노드로 지정해줌
           prev.next = curr.next
         self.size -= 1 # 사이즈 하나 줄이고
