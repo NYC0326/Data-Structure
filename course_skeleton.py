@@ -4,11 +4,10 @@ DELETE = 'D'
 FIND = 'F'
 
 class Student:
-    def __init__(self, i, n, p=None):
+    def __init__(self, i, n, p=None): # 초기값 세팅, p는 넣어주지 않으면 default로 None으로 저장됨
         self.ID = i
         self.name = n
         self.next = p
-        pass
 
 class Course:
     def __init__(self, l=[]):

@@ -103,7 +103,7 @@ class BinarySearchTree:
     # Given a query, search for the node whose key is equal to query.
     # If the node exists, return the key
     # Otherwise, return nullptr  
-    def search(self, root, query):
+    def search(self, root, query): # Time Complexity: O(N), if balanced, then O(logN)
         if root is None or root.key == query:
             return root
         if root.key < query:
@@ -113,35 +113,35 @@ class BinarySearchTree:
 
     # Given an output file, write the keys of all the nodes 
     # visited in inorder traversal
-    def writeInorder(self, root, outFile):
+    def writeInorder(self, root, outFile): # Time Complexity: O(N), if balanced, then O(logN)
         if root:
-            self.writeInorder(root.left, outFile) # 일단 왼쪽으로 계속 감
-            outFile.write(str(root.key) + ' ') # 그 다음에 출력함
-            self.writeInorder(root.right, outFile) # 그 다음에 오른쪽꺼 출력함
+            self.writeInorder(root.left, outFile)
+            outFile.write(str(root.key) + ' ')
+            self.writeInorder(root.right, outFile)
 
     # Given an output file, write the keys of all the nodes 
     # visited in preorder traversal
-    def writePreorder(self, root, outFile):
+    def writePreorder(self, root, outFile): # Time Complexity: O(N), if balanced, then O(logN)
         if root:
-            outFile.write(str(root.key) + ' ') # 일단 가운데 놈 먼저 출력
-            self.writePreorder(root.left, outFile) # 그런 다음에 일단 왼쪽 먼저 탐색
-            self.writePreorder(root.right, outFile) # 그 다음에 오른쪽 탐색
+            outFile.write(str(root.key) + ' ')
+            self.writePreorder(root.left, outFile)
+            self.writePreorder(root.right, outFile)
   
     # Given an output file, write the keys of all the nodes 
     # visited in postorder traversal
-    def writePostorder(self, root, outFile):
+    def writePostorder(self, root, outFile): # Time Complexity: O(N), if balanced, then O(logN)
         if root:
             self.writePostorder(root.left, outFile) # 일단 왼쪽으로 감
             self.writePostorder(root.right, outFile) # 그런 다음에 오른쪽 봄
             outFile.write(str(root.key) + ' ') # 그런다음에 출력함
   
     # If node with key k alreay exists in the tree, do nothing
-    # Otherwise, insert new node with key k 
-    def insertNode(self, root, k): # 노드 삽입
+    # Otherwise, insert new node with key k  
+    def insertNode(self, root, k): # Time Complexity: O(N), if balanced, then O(logN)
         if root == None: # 만약 삽입하는게 첫 데이터라면
             root = TreeNode(k) # k가 root인 새로운 node를 생성
         else:
-            if root.key == k: # 만약 탐색해서 root.key == k 이면 이미 있는 것이니까 삽입 하지 말고 그냥 리턴 함
+            if root.key == k: # 만약 탐색해서 root.key == k 이면 이미 있는 것이므로 삽입 하지 말고 그냥 리턴
                 return root
             elif root.key < k: # 만약 삽입하고자 하는 값이 현재 root.key 보다 크면 root.right에 삽입해야함
                 root.right = self.insertNode(root.right, k) # root.right을 root으로 해서 다시 삽입함
@@ -151,7 +151,7 @@ class BinarySearchTree:
     
     # If deletion fails, immediately terminate the program
     # Otherwise, delete the node with key k
-    def deleteNode(self, root, k): # 노드 삭제
+    def deleteNode(self, root, k): # Time Complexity: O(N), if balanced, then O(logN)
         if root is None: # 만약 루트가 None임 (삭제할게 없음)
             return root # 그냥 None 반환
         if k < root.key: # 만약 삭제하고자 하는 key값이 root.key보다 작음
@@ -159,19 +159,19 @@ class BinarySearchTree:
         elif k > root.key: # 그게 아니라 root.key 보다 크면
             root.right = self.deleteNode(root.right, k) # 오른쪽에 있을테니까 다시 탐색
         else: # 만약 root.key == k 라면 그거 삭제하면 됨
-            if root.left is None: # 삭제를 할려고 하는데 왼쪽 자식노드가 None이야
-                node = root.right # 그러면 일단 right를 node라는 임시 변수에 저장해두고
+            if root.left is None: # 삭제를 할려고 하는데 왼쪽 자식노드가 None이면
+                node = root.right # 일단 right를 node라는 임시 변수에 저장해두고
                 root = None # root를 삭제하고
                 return node # 그 오른쪽 자식노드를 반환해줌
-            elif root.right is None: # 그게 아니라 오른쪽이 비었다면 반대로
+            elif root.right is None: # 오른쪽이 비었다면 반대로
                 node = root.left
                 root = None
                 return node
-            temp = BinarySearchTree() # 자식 노드가 둘다 있다면 그 successor랑 바꿔줌
-            temp.root = root.right # 오른쪽 서브트리를 BST로 만들어줄려고 오른쪽 서브트리의 노드를 root.node로 만들어줌
-            node = temp.findMin() # 그리고 그거의 최솟값을 찾으면 그게 successor임
-            root.key = node.key # 그래서 root.key를 successor랑 바꿔주고
-            root.right = self.deleteNode(root.right, node.key) # successor를 삭제해
+            temp = BinarySearchTree() # 자식 노드가 둘 다 있다면 그 successor랑 바꿈
+            temp.root = root.right # 오른쪽 서브트리를 BST로 만들어줄려고 오른쪽 서브트리의 노드를 root.node로 만듦
+            node = temp.findMin() # 오른쪽 서브트리의 최솟값을 찾으면 그것이 successor임
+            root.key = node.key # root.key를 successor랑 바꿔줌
+            root.right = self.deleteNode(root.right, node.key) # successor를 삭제
         
         return root
 
@@ -211,7 +211,7 @@ if __name__ == "__main__":
                     raise Exception("SEARCH: invalid input")
                 k = int(words[1])
                 # Practice 5. Call the function for search
-                search = tree.search(tree.root, k)
+                search = tree.search(tree.root, k) 
                 if not search:
                     raise Exception("Search failed")
                 else:
