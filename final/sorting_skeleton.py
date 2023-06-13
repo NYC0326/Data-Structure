@@ -30,6 +30,40 @@ def msort(arr):
 
     return merged_arr # 정렬된 배열 반환
 
+def msort2(arr, low, high):
+    if low >= high:
+        return arr
+    mid = (low + high) // 2
+    msort2(arr, low, mid)
+    msort2(arr, mid+1, high)
+    merge(arr, low, mid+1, high)
+
+    return arr
+
+def merge(arr, low, mid, high):
+    l, h = low, mid
+    tmp = []
+
+    while l <= mid-1 and h <= high:
+        if arr[l] >= arr[h]:
+            tmp.append(arr[l])
+            l += 1
+        else:
+            tmp.append(arr[h])
+            h += 1
+    
+    while l <= mid-1:
+        tmp.append(arr[l])
+        l += 1
+    while h <= high:
+        tmp.append(arr[h])
+        h += 1
+    
+    for i in range(low, high+1):
+        arr[i] = tmp[i-low]
+    
+    return arr
+
 def qsort(arr):
     if len(arr) < 2:
         return arr
@@ -63,14 +97,14 @@ if __name__ == "__main__":
             if op == MERGE_SORT:
                 if len(words) != 2:
                     raise Exception("MERGE_SORT: invalid input")
-                ans = msort(list(map(int, lines[i].split())))
+                ans = msort2(arr, 0, len(arr)-1)
                 for a in ans:
                     outFile.write(str(a) + " ")
                 outFile.write("\n")
             elif op == QUICK_SORT:
                 if len(words) != 2:
                     raise Exception("QUICK_SORT: invalid input")
-                ans = qsort(list(map(int, lines[i].split())))
+                ans = qsort(arr)
                 for a in ans:
                     outFile.write(str(a) + " ")
                 outFile.write("\n")
