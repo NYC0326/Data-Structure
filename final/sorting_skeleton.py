@@ -25,16 +25,16 @@ def msort(arr):
 
     if len(left)>0: # 왼쪽 배열이 남아있을 때 남아 있는 거 다 추가하기
         merged_arr += left 
-    else:
+    else: # 오른쪽 배열이 남이있을 때 남아 있는 거 다 추가하기
         merged_arr += right
 
-    return merged_arr
+    return merged_arr # 정렬된 배열 반환
 
 def qsort(arr):
     if len(arr) < 2:
         return arr
-    piv = arr.pop(0)
-    left = []
+    piv = arr.pop(0) # pivot은 list의 맨 앞의 요소로 지정
+    left = [] # 
     right = []
 
     for i in arr:
