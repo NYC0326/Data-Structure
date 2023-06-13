@@ -25,7 +25,7 @@ def msort(arr):
 
     if len(left)>0: # 왼쪽 배열이 남아있을 때 남아 있는 거 다 추가하기
         merged_arr += left 
-    else: # 오른쪽 배열이 남이있을 때 남아 있는 거 다 추가하기
+    else: # 오른쪽 배열이 남아있을 때 남아 있는 거 다 추가하기
         merged_arr += right
 
     return merged_arr # 정렬된 배열 반환
